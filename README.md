@@ -2,9 +2,7 @@
 
 `adhesive` is a simple build tool that uses UglifyJS to concatenate your JavaScript and make you a nice source map.
 
-I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html`.  There are many more sophisticated versions of this out there (HTML5 Boilerplate's build tool comes to mind).  
-		
-However, `adhesive` has some advantages: 
+I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html`.  There are many more sophisticated versions of this out there (HTML5 Boilerplate's build tool comes to mind). However, `adhesive` has some advantages: 
 - there is very little configuration, so it won't take you more than a few minutes to get it working 
 - it outputs source maps so you can easily debug the minified version of your code (in case it causes side effects) 
 - it's so simple that you can grab the repo and modify it to your heart's content – without spending very long learning how it works.
