@@ -1,0 +1,21 @@
+{
+  "name": "adhesive",
+  "version": "0.1.0",
+  "description": "Simple build tool that combines your JS and outputs a source map, with JSON configuration.",
+  "main": "adhesive.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jstarrdewar/adhesive.git"
+  },
+  "keywords": [
+    "Build",
+    "Concatenate",
+    "Minify",
+    "UglifyJS",
+    "Source Map"
+  ],
+  "author": "John Starr Dewar",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "3d17bcef65dead9bdf33e701033383b91c94cb77"
+}
