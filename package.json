@@ -11,11 +11,18 @@
     "Build",
     "Concatenate",
     "Minify",
-    "UglifyJS",
+    "Uglify",
     "Source Map"
   ],
   "author": "John Starr Dewar",
   "license": "BSD",
   "readmeFilename": "README.md",
-  "gitHead": "3d17bcef65dead9bdf33e701033383b91c94cb77"
+  "gitHead": "3d17bcef65dead9bdf33e701033383b91c94cb77",
+  "preferGlobal": "true",
+  "bin": {
+    "adhesive": "adhesive.js"
+  },
+  "dependencies": {
+    "uglify-js": "~2.2.5"
+  }
 }
