@@ -2,15 +2,107 @@
 
 `adhesive` is a simple build tool that uses UglifyJS to concatenate your JavaScript and make you a nice source map.
 
-I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html`.  There are many more sophisticated versions of this out there (HTML5 Boilerplate's build tool comes to mind). However, `adhesive` has some advantages: 
+I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html` (and where you may not want to rock the boat).  There are [more sophisticated versions of this](https://github.com/h5bp/node-build-script) out there, but `adhesive` has some advantages: 
 - there is very little configuration, so it won't take you more than a few minutes to get it working 
-- it outputs source maps so you can easily debug the minified version of your code (in case it causes side effects) 
+- it __outputs source maps__ so you can easily debug the minified version of your code (in case it causes side effects) 
 - it's so simple that you can grab the repo and modify it to your heart's content – without spending very long learning how it works.
+
+`adhesive` doesn't bother with css.  I usually have [compass](http://compass-style.org/) watching my scss files and combining them already.
+
+##Installation
+
+`npm install adhesive -g`
+
+Or you can clone this repository, `cd` into into it, and run `npm link`.  That's a good option if you want to extend adhesive with your own functionality.
 
 ##Usage
 
+`adhesive <config_path> [--debug | --dont-minify | --help]`
+
+Your config file must have a .json extension.  You may omit the extension when invoking adhesive. For example, if your configuration file is named `build.json`, the following are equivalent:
+
+`adhesive build`<br/>
+`adhesive build.json`
+
+Flags:
+
+`--debug`
+- compiles a source map
+- defines a constant DEBUG=true which you can use to hide console.log from the production build as described in the UglifyJS 2 documentation.
+
+`--dont-minify`
+- adhesive will only concatenate your code (no uglifying), which is useful if you need to debug something in a browser that doesn't support source maps.
+
+`--help`
+- displays this information in the terminal.
+
+###Automation
+
+I recommend using [nodemon](https://github.com/remy/nodemon) with adhesive to recombine your code each time you make a change.  Thanks to source maps, this allows you to have a nice workflow that is pretty much identical to using `<script>` tags:
+
+`npm install nodemon -g`<br/>
+`nodemon adhesive build --debug`
+
+##Configuration
+
+The configuration file is a JSON document.  It requires that you specify an array of source files and an output path, like so:
+
+```json
+{
+    "sources":[
+        "swipe.js",
+        "PxLoader.js",
+        "PxLoaderImage.js",
+        "main.js"
+    ],
+    "outputPath":"main_built.js"
+}
+```
+It probably goes without saying that the sources are concatenated in the order listed, so if your site currently has a list of script tags, you'll want to maintain that same order in here.
+
+###Optional Parameters
+If all of your JavaScript files are in a folder called `js`, then you can set a `sourceRoot` path that will be prepended to the filenames in the `sources` array:
+
+```json
+{
+    "sourceRoot":"js/",
+    "sources":[
+        "swipe.js",
+        "PxLoader.js",
+        "PxLoaderImage.js",
+        "main.js"
+    ],
+    "outputPath":"js/main_built.js"
+}
+```
+###Source Map Options
+The source map will automatically be saved alongside the built file.  In the previous example if you called `adhesive build.json --debug`, you would get to files saved to your `js` folder:
+
+`main_built.js`
+`main_built.js.map`
+
+You can customize this by adding a `sourceMap` object.  It has two parameters: `path` and `root`.  The source map will be saved at `path`, and `root` specifies where the source map will look for files.  This gets a little confusing, because it's relative to the source map's path at runtime.  If you set the source map path to `maps/main_sourcemap.map` and the `root` isn't set to anything, the source map will look for files in `maps/js/`, which is not what you want.  It defaults to `../` which goes back to the root level, and assumes your `sourceRoot` is only one level deep.  
+
+Here's an example configuration with everything in it:
+
+```json
+{
+    "sourceRoot":"js/vendor/",
+    "sources":[
+        "swipe.js",
+        "PxLoader.js",
+        "PxLoaderImage.js"
+    ],
+    "outputPath":"js/built/vendor.js",
+    "sourceMap":{
+        "path":"maps/sourceMap.map",
+        "root":"../"
+    }
+}
+```
 
 ##License
+FreeBSD:
 ```
 Copyright (c) 2013, John Starr Dewar
 All rights reserved.
