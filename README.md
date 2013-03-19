@@ -95,7 +95,7 @@ Here's an example configuration with everything in it:
     ],
     "outputPath":"js/built/vendor.js",
     "sourceMap":{
-        "path":"maps/vendor.map",
+        "path":"maps/vendor.js.map",
         "root":"../"
     }
 }
