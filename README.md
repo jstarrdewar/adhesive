@@ -11,6 +11,8 @@ I expect this to be most useful for simple, front-end focused projects, particul
 
 ##Installation
 
+You need to install [Node](http://nodejs.org/) if you haven't already.  Then:
+
 `npm install adhesive -g`
 
 Or you can clone this repository, `cd` into into it, and run `npm link`.  That's a good option if you want to try modifying adhesive.
