@@ -4,7 +4,7 @@
 
 I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html` (and where you may not want to rock the boat).  There are [more sophisticated versions of this](https://github.com/h5bp/node-build-script) out there, but `adhesive` has some advantages: 
 - there is very little configuration, so it won't take you more than a few minutes to get it working 
-- it __outputs source maps__ so you can easily debug the minified version of your code (in case it causes side effects) 
+- it __outputs source maps__ so you can easily debug the minified version of your code 
 - it's so simple that you can grab the repo and modify it to your heart's content – without spending very long learning how it works.
 
 `adhesive` doesn't bother with css.  I usually have [compass](http://compass-style.org/) watching my scss files and combining them already.
