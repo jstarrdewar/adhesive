@@ -13,7 +13,7 @@ I expect this to be most useful for simple, front-end focused projects, particul
 
 `npm install adhesive -g`
 
-Or you can clone this repository, `cd` into into it, and run `npm link`.  That's a good option if you want to extend adhesive with your own functionality.
+Or you can clone this repository, `cd` into into it, and run `npm link`.  That's a good option if you want to try modifying adhesive.
 
 ##Usage
 
@@ -24,14 +24,14 @@ Your config file must have a .json extension.  You may omit the extension when i
 `adhesive build`<br/>
 `adhesive build.json`
 
-Flags:
+###Flags
 
 `--debug`
 - compiles a source map
-- defines a constant DEBUG=true which you can use to hide console.log from the production build as described in the UglifyJS 2 documentation.
+- defines a constant DEBUG=true which you can use to hide console.log from the production build. [More info on my blog](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/).
 
 `--dont-minify`
-- adhesive will only concatenate your code (no uglifying), which is useful if you need to debug something in a browser that doesn't support source maps.
+- will tell adhesive to only concatenate your code (no uglifying), which is useful if you need to debug something in a browser that doesn't support source maps.
 
 `--help`
 - displays this information in the terminal.
@@ -76,7 +76,7 @@ You can set a `sourceRoot` path that will be prepended to the filenames in the `
 }
 ```
 ###Source Map Options
-The source map will automatically be saved alongside the built file.  In the previous example if you called `adhesive build.json --debug`, you would get to files saved to your `js` folder:
+The source map will automatically be saved alongside the built file.  In the previous example if you called `adhesive build.json --debug`, you would get two files saved to your `js` folder:
 
 `main_built.js`
 `main_built.js.map`
