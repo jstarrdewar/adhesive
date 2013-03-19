@@ -61,15 +61,15 @@ The configuration file is a JSON document.  It requires that you specify an arra
 It probably goes without saying that the sources are concatenated in the order listed, so if your site currently has a list of script tags, you'll want to maintain that same order in here.
 
 ###Optional Parameters
-If all of your JavaScript files are in a folder called `js`, then you can set a `sourceRoot` path that will be prepended to the filenames in the `sources` array:
+You can set a `sourceRoot` path that will be prepended to the filenames in the `sources` array:
 
 ```json
 {
     "sourceRoot":"js/",
     "sources":[
-        "swipe.js",
-        "PxLoader.js",
-        "PxLoaderImage.js",
+        "vendor/swipe.js",
+        "vendor/PxLoader.js",
+        "vendor/PxLoaderImage.js",
         "main.js"
     ],
     "outputPath":"js/main_built.js"
@@ -95,7 +95,7 @@ Here's an example configuration with everything in it:
     ],
     "outputPath":"js/built/vendor.js",
     "sourceMap":{
-        "path":"maps/sourceMap.map",
+        "path":"maps/vendor.map",
         "root":"../"
     }
 }
