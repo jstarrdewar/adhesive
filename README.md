@@ -3,9 +3,9 @@
 `adhesive` is a simple build tool that uses UglifyJS to concatenate your JavaScript and make you a nice source map.
 
 I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html` (and where you may not want to rock the boat).  There are [more sophisticated versions of this](https://github.com/h5bp/node-build-script) out there, but `adhesive` has some advantages: 
-- there is very little configuration, so it won't take you more than a few minutes to get it working 
-- it __outputs source maps__ so you can easily debug the minified version of your code 
-- it's so simple that you can grab the repo and modify it to your heart's content – without spending very long learning how it works.
+- There is very little configuration, so it won't take you more than a few minutes to get it working. 
+- It __outputs source maps__ so you can easily debug the minified version of your code. 
+- It's so simple that you can grab the repo and modify it to your heart's content – without spending very long learning how it works.
 
 `adhesive` doesn't bother with css.  I usually have [compass](http://compass-style.org/) watching my scss files and combining them already.
 
@@ -29,14 +29,14 @@ Your config file must have a .json extension.  You may omit the extension when i
 ###Flags
 
 `--debug`
-- compiles a source map
-- defines a constant DEBUG=true which you can use to hide console.log from the production build. [More info on my blog](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/).
+- Compiles a source map.
+- Defines a constant DEBUG=true which you can use to hide console.log from the production build. [More info on my blog](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/).
 
 `--no-uglify`
-- will tell adhesive to only concatenate your code (no uglifying), which is useful if you need to debug something in a browser that doesn't support source maps.
+- Will tell adhesive to only concatenate your code (no uglifying), which is useful if you need to debug something in a browser that doesn't support source maps.
 
 `--help`
-- displays this information in the terminal.
+- Displays this information in the terminal.
 
 ###Automation
 
