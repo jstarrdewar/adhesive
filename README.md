@@ -32,7 +32,7 @@ Your config file must have a .json extension.  You may omit the extension when i
 - compiles a source map
 - defines a constant DEBUG=true which you can use to hide console.log from the production build. [More info on my blog](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/).
 
-`--dont-minify`
+`--no-uglify`
 - will tell adhesive to only concatenate your code (no uglifying), which is useful if you need to debug something in a browser that doesn't support source maps.
 
 `--help`
@@ -83,7 +83,7 @@ The source map will automatically be saved alongside the built file.  In the pre
 `main_built.js`
 `main_built.js.map`
 
-You can customize this by adding a `sourceMap` object.  It has two parameters: `path` and `root`.  The source map will be saved at `path`, and `root` specifies where the source map will look for files.  This gets a little confusing, because it's relative to the source map's path at runtime.  If you set the source map path to `maps/main_sourcemap.map` and the `root` isn't set to anything, the source map will look for files in `maps/js/`, which is not what you want.  It defaults to `../` which goes back to the root level, and assumes your `sourceRoot` is only one level deep.  
+You can customize this by adding a `sourceMap` object.  It has two parameters: `path` and `root`.  The source map will be saved at `path`, and `root` specifies where the source map will look for files.  This gets a little confusing, because it's relative to the source map's path at runtime.  If you set the source map path to `maps/main_sourcemap.map` and the `root` isn't set to anything, the source map will look for files in `maps/js/`, which is not what you want.  When in doubt, don't set `root`.  It will automatically be pointed to the current folder, which is usually the right choice.
 
 Here's an example configuration with everything in it:
 
