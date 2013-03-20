@@ -80,7 +80,7 @@ You can set a `sourceRoot` path that will be prepended to the filenames in the `
 ###Source Map Options
 The source map will automatically be saved alongside the built file.  In the previous example if you called `adhesive build.json --debug`, you would get two files saved to your `js` folder:
 
-`main_built.js`
+`main_built.js`<br/>
 `main_built.js.map`
 
 You can customize this by adding a `sourceMap` object.  It has two parameters: `path` and `root`.  The source map will be saved at `path`, and `root` specifies where the source map will look for files.  This gets a little confusing, because it's relative to the source map's path at runtime.  If you set the source map path to `maps/main_sourcemap.map` and the `root` isn't set to anything, the source map will look for files in `maps/js/`, which is not what you want.  When in doubt, don't set `root`.  It will automatically be pointed to the current folder, which is usually the right choice.
