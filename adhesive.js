@@ -122,12 +122,12 @@ function noConfig() {
 	console.log("[!] I couldn't stick because you didn't specify a configuration.");
 }
 
-function fileReadError(path, e) {
+function fileReadError(path, err) {
 	console.log("[!] I couldn't read '" + path + "' because:");
-	console.log("\t" + e + "\n");
+	console.log("\t" + err + "\n");
 }
 
-function fileWriteError(e) {
+function fileWriteError(err) {
 	console.log("Uh oh, make sure the directory exists that I'm trying to save to.");
     console.log(err);
 }
