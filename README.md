@@ -45,6 +45,14 @@ I recommend using [nodemon](https://github.com/remy/nodemon) with adhesive to re
 `npm install nodemon -g`<br/>
 `nodemon adhesive build --debug`
 
+__Important:__ note that if you install adhesive from npm or use `npm link`, you'll need to use nodemon's `--exec` mode:
+
+`nodemon --exec adhesive build --debug --watch src-js`
+
+You'll notice that I used the `--watch` option to specify the watch folder.  In this example I'm building to the 'js' folder, but all my constituent files are in 'src-js'.  
+
+The reason is simple: if you use nodemon to execute adhesive and the latter saves its output to the same folder nodemon is watching (such as the project directory), you'll wind up with a crazy infinite loop because nodemon will detect adhesive's output as a change.  
+
 ##Configuration
 
 The configuration file is a JSON document.  It requires that you specify an array of source files and an output path, like so:
