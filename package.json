@@ -1,6 +1,6 @@
 {
   "name": "adhesive",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "Simple build tool that combines your JS and outputs a source map, with JSON configuration.",
   "main": "adhesive.js",
   "repository": {
