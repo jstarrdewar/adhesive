@@ -2,10 +2,10 @@
 
 `adhesive` is a simple build tool that uses UglifyJS to concatenate your JavaScript and make you a nice source map.
 
-I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html` (and where you may not want to rock the boat).  There are [more sophisticated versions of this](https://github.com/h5bp/node-build-script) out there, but `adhesive` has some advantages: 
+I expect this to be most useful for simple, front-end focused projects, particularly those that are already working with a traditional list of `<script>` tags in `index.html` (and where you may not want to rock the boat).  There are [more sophisticated versions of this](http://yeoman.io/) out there, but `adhesive` has some advantages:
 - There is very little configuration, so it won't take you more than a few minutes to get it working. 
 - It __outputs source maps__ so you can easily debug the minified version of your code. 
-- It's so simple that you can grab the repo and modify it to your heart's content – without spending very long learning how it works.
+- It's so simple that you can grab the repo and modify it to your heart's content — without spending very long learning how it works.
 
 `adhesive` doesn't bother with css.  I usually have [compass](http://compass-style.org/) watching my scss files and combining them already.
 
@@ -15,7 +15,7 @@ You need to install [Node](http://nodejs.org/) if you haven't already.  Then:
 
 `npm install adhesive -g`
 
-Or you can clone this repository, `cd` into into it, and run `npm link`.  That's a good option if you want to try modifying adhesive.
+Or you can clone this repository, `cd` into into it, and run `npm install`, then `npm link`.  That's a good option if you want to try modifying adhesive.
 
 ##Usage
 
@@ -29,8 +29,8 @@ Your config file must have a .json extension.  You may omit the extension when i
 ###Flags
 
 `--debug`
-- Compiles a source map.
-- Defines a constant DEBUG=true which you can use to hide console.log from the production build. [More info on my blog](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/).
+- Compiles a source map and saves it alongside the built JavaScript (in previous versions you could put the source maps in
+a different folder, but it was very confusing to configure so I've removed it).
 
 `--no-uglify`
 - Will tell adhesive to only concatenate your code (no uglifying), which is useful if you need to debug something in a browser that doesn't support source maps.
@@ -39,6 +39,8 @@ Your config file must have a .json extension.  You may omit the extension when i
 - Displays this information in the terminal.
 
 ###Automation
+
+####Nodemon
 
 I recommend using [nodemon](https://github.com/remy/nodemon) with adhesive to recombine your code each time you make a change.  Thanks to source maps, this allows you to have a nice workflow that is pretty much identical to using `<script>` tags:
 
@@ -52,6 +54,8 @@ __Important:__ note that if you install adhesive from npm or use `npm link`, you
 You'll notice that I used the `--watch` option to specify the watch folder.  In this example I'm building to the 'js' folder, but all my constituent files are in 'src-js'.  
 
 The reason is simple: if you use nodemon to execute adhesive and the latter saves its output to the same folder nodemon is watching (such as the project directory), you'll wind up with a crazy infinite loop because nodemon will detect adhesive's output as a change.  
+
+####IntelliJ Platform File Watchers
 
 ##Configuration
 
@@ -71,11 +75,11 @@ The configuration file is a JSON document (as noted above, you can name it anyth
 It probably goes without saying that the sources are concatenated in the order listed, so if your site currently has a list of script tags, you'll want to maintain that same order in here.
 
 ###Optional Parameters
-You can set a `sourceRoot` path that will be prepended to the filenames in the `sources` array:
+You can set a `sourceRoot` path that will be prepended to the file paths in the `sources` array:
 
 ```json
 {
-    "sourceRoot":"js/",
+    "sourceRoot":"src",
     "sources":[
         "vendor/swipe.js",
         "vendor/PxLoader.js",
@@ -85,29 +89,22 @@ You can set a `sourceRoot` path that will be prepended to the filenames in the `
     "outputPath":"js/main_built.js"
 }
 ```
-###Source Map Options
-The source map will automatically be saved alongside the built file.  In the previous example if you called `adhesive build.json --debug`, you would get two files saved to your `js` folder:
 
-`main_built.js`<br/>
-`main_built.js.map`
-
-You can customize this by adding a `sourceMap` object.  It has two parameters: `path` and `root`.  The source map will be saved at `path`, and `root` specifies where the source map will look for files.  This gets a little confusing, because it's relative to the source map's path at runtime.  If you set the source map path to `maps/main_sourcemap.map` and the `root` isn't set to anything, the source map will look for files in `maps/js/`, which is not what you want.  When in doubt, don't set `root`.  It will automatically be pointed at the current folder, which is usually the right choice.
-
-Here's an example configuration with everything in it:
+You can define globals that will be injected during the Uglifying process (when the `--debug` option is not passed). [Find out why you might want to do this](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/) on my blog. Use a hash called `uglifyGlobals`:
 
 ```json
 {
-    "sourceRoot":"js/vendor/",
+    "sourceRoot":"src",
     "sources":[
-        "swipe.js",
-        "PxLoader.js",
-        "PxLoaderImage.js"
+        "vendor/swipe.js",
+        "vendor/PxLoader.js",
+        "vendor/PxLoaderImage.js",
+        "main.js"
     ],
-    "outputPath":"js/built/vendor.js",
-    "sourceMap":{
-        "path":"maps/vendor.js.map",
-        "root":"../"
-    }
+    "uglifyGlobals": {
+        "DEBUG":false
+    },
+    "outputPath":"js/main_built.js"
 }
 ```
 

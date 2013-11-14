@@ -32,7 +32,7 @@ if (configPath && configPath !== "--help") {
 	return;
 }
 
-var options = config.productionGlobals ? { compress: { global_defs: config.productionGlobals }} : {};
+var options = config.uglifyGlobals ? { compress: { global_defs: config.uglifyGlobals }} : {};
 var debugMode = process.argv[3] === "--debug";
 var noUglify = process.argv[3] === "--no-uglify";
 
