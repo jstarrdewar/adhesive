@@ -119,7 +119,7 @@ You can define globals that will be injected during the Uglifying process (when 
 - Added configurable definition of globals for uglify (instead of always being DEBUG:false).
 - Moved some code to helpers.js to facilitate unit tests.
 - Added Jasmine specs.
-- Removed sourceMap configuration hash because it was confusing.  Now uses sensible default of saving the sourceMap with the built file.
+- Removed `sourceMap` configuration hash because it was confusing.  Now uses sensible default of saving the source map with the built file.
 - Decided to call it 1.0, because I don't think there's much left to add at this point.
 
 ####0.1.1
