@@ -8,8 +8,9 @@
 
 var UglifyJS = require('uglify-js');
 var fs = require('fs');
+var helpers = require('./lib/helpers');
 
-//----- Parse Arguments -----//
+//----- Parse the Arguments -----//
 
 var configPath = process.argv[2];
 
@@ -31,47 +32,26 @@ if (configPath && configPath !== "--help") {
 	return;
 }
 
-var options = { compress: { global_defs: { DEBUG: false } }};
+var options = config.productionGlobals ? { compress: { global_defs: config.productionGlobals }} : {};
 var debugMode = process.argv[3] === "--debug";
 var noUglify = process.argv[3] === "--no-uglify";
 
-var sourceRoot = config.sourceRoot || "";
 var sourceMapPath = config.outputPath + ".map";
-var sourceMapRoot = calculateSourceMapRoot();
+var rf = helpers.determineSourceMapRootAndFilenameFromPath(sourceMapPath);
+var sourceMapFilename = rf.filename;
 
+// If we're in debug mode we won't define any production globals.
 if (debugMode) {
-    if (config.sourceMap) {
-        sourceMapPath = config.sourceMap.path || sourceMapPath;
-		if (config.sourceMap.root) {
-			sourceMapRoot = config.sourceMap.root;
-		} else if (config.sourceMap.path) {
-			sourceMapRoot = calculateSourceMapRoot();
-		}
-    }
-
     options = {
         outSourceMap: sourceMapPath,
 		// this is Uglify's sourceRoot parameter, which is not to be confused with ours!
-        sourceRoot: sourceMapRoot
+        sourceRoot: rf.root
     }
-}
-
-function calculateSourceMapRoot() {
-	var depth = (sourceMapPath.match(/\//g)||[]).length;
-	var root = "";
-	for (var k = 0; k < depth; k++) {
-		root += "../";
-	}
-	return root;
 }
 
 //----- Create the Build -----//
 
-var sources = [];
-
-for (var i = 0; i < config.sources.length; i++) {
-    sources.push(sourceRoot + config.sources[i]);
-}
+var sources = helpers.createSourcePathsArray(config.sourceRoot, config.sources);
 
 var result;
 
@@ -87,7 +67,7 @@ if (noUglify) {
 		}
 		if (j > 0) result.code += "\n\n";
 		result.code += "/* source: " + path + " */\n\n" + file;
-	};
+	}
 } else {
 	result = UglifyJS.minify(sources, options);
 }
@@ -95,7 +75,7 @@ if (noUglify) {
 //----- Output -----//
 
 if (debugMode) {
-    result.code += "//@ sourceMappingURL=/" + sourceMapPath;
+    result.code += "//# sourceMappingURL=" + sourceMapFilename;
 
     fs.writeFile(sourceMapPath, result.map, function (err) {
         if (err) {
@@ -119,7 +99,7 @@ fs.writeFile(config.outputPath, result.code, function (err) {
 //----- Feedback -----//
 
 function noConfig() {
-	console.log("[!] I couldn't stick because you didn't specify a configuration.");
+	console.log("[!] I couldn't stick anything together because you didn't specify a configuration.");
 }
 
 function fileReadError(path, err) {

@@ -55,7 +55,7 @@ The reason is simple: if you use nodemon to execute adhesive and the latter save
 
 ##Configuration
 
-The configuration file is a JSON document.  It requires that you specify an array of source files and an output path, like so:
+The configuration file is a JSON document (as noted above, you can name it anything, but I recommend `build.json`).  It requires that you specify an array of source files and an output path, like so:
 
 ```json
 {
@@ -91,7 +91,7 @@ The source map will automatically be saved alongside the built file.  In the pre
 `main_built.js`<br/>
 `main_built.js.map`
 
-You can customize this by adding a `sourceMap` object.  It has two parameters: `path` and `root`.  The source map will be saved at `path`, and `root` specifies where the source map will look for files.  This gets a little confusing, because it's relative to the source map's path at runtime.  If you set the source map path to `maps/main_sourcemap.map` and the `root` isn't set to anything, the source map will look for files in `maps/js/`, which is not what you want.  When in doubt, don't set `root`.  It will automatically be pointed to the current folder, which is usually the right choice.
+You can customize this by adding a `sourceMap` object.  It has two parameters: `path` and `root`.  The source map will be saved at `path`, and `root` specifies where the source map will look for files.  This gets a little confusing, because it's relative to the source map's path at runtime.  If you set the source map path to `maps/main_sourcemap.map` and the `root` isn't set to anything, the source map will look for files in `maps/js/`, which is not what you want.  When in doubt, don't set `root`.  It will automatically be pointed at the current folder, which is usually the right choice.
 
 Here's an example configuration with everything in it:
 
