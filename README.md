@@ -57,6 +57,8 @@ The reason is simple: if you use nodemon to execute adhesive and the latter save
 
 ####IntelliJ Platform File Watchers
 
+<img src="https://s3.amazonaws.com/jstarrdewar.com.bucket/adhesive_IntelliJ_config.png" alt="IntelliJ File Watcher Configuration" width="711">
+
 ##Configuration
 
 The configuration file is a JSON document (as noted above, you can name it anything, but I recommend `build.json`).  It requires that you specify an array of source files and an output path, like so:
