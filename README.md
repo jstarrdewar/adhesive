@@ -75,6 +75,8 @@ The configuration file is a JSON document (as noted above, you can name it anyth
 It probably goes without saying that the sources are concatenated in the order listed, so if your site currently has a list of script tags, you'll want to maintain that same order in here.
 
 ###Optional Parameters
+
+####sourceRoot
 You can set a `sourceRoot` path that will be prepended to the file paths in the `sources` array:
 
 ```json
@@ -90,7 +92,8 @@ You can set a `sourceRoot` path that will be prepended to the file paths in the 
 }
 ```
 
-You can define globals that will be injected during the Uglifying process (when the `--debug` option is not passed). [Find out why you might want to do this](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/) on my blog. Use a hash called `uglifyGlobals`:
+####uglifyGlobals
+You can define globals that will be injected during the Uglifying process (when the `--debug` option is _not_ used). [Find out why you might want to do this](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/) on my blog. Use a hash called `uglifyGlobals`:
 
 ```json
 {
@@ -107,6 +110,21 @@ You can define globals that will be injected during the Uglifying process (when 
     "outputPath":"js/main_built.js"
 }
 ```
+
+##Version History
+
+####1.0.0
+- Added configurable definition of globals for uglify (instead of always being DEBUG:false).
+- Moved some code to helpers.js to facilitate unit tests.
+- Added Jasmine specs.
+- Removed sourceMap configuration hash because it was confusing.  Now uses sensible default of saving the sourceMap with the built file.
+- Decided to call it 1.0, because I don't think there's much left to add at this point.
+
+####0.1.1
+- Fixed a bug thanks to Adrian Unger.
+
+####0.1.0
+- Initial release.
 
 ##License
 FreeBSD:
