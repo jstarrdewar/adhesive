@@ -9,7 +9,7 @@ I expect this to be most useful for simple, front-end focused projects, particul
 
 `adhesive` doesn't bother with css.  I usually have [compass](http://compass-style.org/) watching my scss files and combining them already.
 
-##Installation
+## Installation
 
 You need to install [Node](http://nodejs.org/) if you haven't already.  Then:
 
@@ -17,7 +17,7 @@ You need to install [Node](http://nodejs.org/) if you haven't already.  Then:
 
 Or you can clone this repository, `cd` into into it, and run `npm install`, then `npm link`.  That's a good option if you want to try modifying adhesive.
 
-##Usage
+## Usage
 
 `adhesive <config_path> [--debug | --dont-minify | --help]`
 
@@ -26,7 +26,7 @@ Your config file must have a .json extension.  You may omit the extension when i
 `adhesive build`<br/>
 `adhesive build.json`
 
-###Flags
+### Flags
 
 `--debug`
 - Compiles a source map and saves it alongside the built JavaScript (in previous versions you could put the source maps in
@@ -38,9 +38,9 @@ a different folder, but it was very confusing to configure so I've removed it).
 `--help`
 - Displays this information in the terminal.
 
-###Automation
+### Automation
 
-####Nodemon
+#### Nodemon
 
 I recommend using [nodemon](https://github.com/remy/nodemon) with adhesive to recombine your code each time you make a change.  Thanks to source maps, this allows you to have a nice workflow that is pretty much identical to using `<script>` tags:
 
@@ -55,11 +55,11 @@ You'll notice that I used the `--watch` option to specify the watch folder.  In 
 
 The reason is simple: if you use nodemon to execute adhesive and the latter saves its output to the same folder nodemon is watching (such as the project directory), you'll wind up with a crazy infinite loop because nodemon will detect adhesive's output as a change.  
 
-####IntelliJ Platform File Watchers
+#### IntelliJ Platform File Watchers
 
 <img src="https://s3.amazonaws.com/jstarrdewar.com.bucket/adhesive_IntelliJ_config.png" alt="IntelliJ File Watcher Configuration" width="711">
 
-##Configuration
+## Configuration
 
 The configuration file is a JSON document (as noted above, you can name it anything, but I recommend `build.json`).  It requires that you specify an array of source files and an output path, like so:
 
@@ -76,9 +76,9 @@ The configuration file is a JSON document (as noted above, you can name it anyth
 ```
 It probably goes without saying that the sources are concatenated in the order listed, so if your site currently has a list of script tags, you'll want to maintain that same order in here.
 
-###Optional Parameters
+### Optional Parameters
 
-####sourceRoot
+#### sourceRoot
 You can set a `sourceRoot` path that will be prepended to the file paths in the `sources` array:
 
 ```json
@@ -94,7 +94,7 @@ You can set a `sourceRoot` path that will be prepended to the file paths in the 
 }
 ```
 
-####uglifyGlobals
+#### uglifyGlobals
 You can define globals that will be injected during the Uglifying process (when the `--debug` option is _not_ used). [Find out why you might want to do this](http://jstarrdewar.com/blog/2013/02/28/use-uglify-to-automatically-strip-debug-messages-from-your-javascript/) on my blog. Use a hash called `uglifyGlobals`:
 
 ```json
@@ -113,22 +113,25 @@ You can define globals that will be injected during the Uglifying process (when 
 }
 ```
 
-##Version History
+## Version History
 
-####1.0.0
+#### 1.0.1
+- Fixed security warning from outdated version of UglifyJS
+
+#### 1.0.0
 - Added configurable definition of globals for uglify (instead of always being DEBUG:false).
 - Moved some code to helpers.js to facilitate unit tests.
 - Added Jasmine specs.
 - Removed `sourceMap` configuration hash because it was confusing.  Now uses sensible default of saving the source map with the built file.
 - Decided to call it 1.0, because I don't think there's much left to add at this point.
 
-####0.1.1
+#### 0.1.1
 - Fixed a bug thanks to Adrian Unger.
 
-####0.1.0
+#### 0.1.0
 - Initial release.
 
-##License
+## License
 FreeBSD:
 ```
 Copyright (c) 2013, John Starr Dewar
@@ -158,7 +161,4 @@ The views and conclusions contained in the software and documentation are those
 of the authors and should not be interpreted as representing official policies, 
 either expressed or implied, of the FreeBSD Project.
 ```
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jstarrdewar/adhesive/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
