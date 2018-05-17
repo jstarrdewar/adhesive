@@ -22,6 +22,6 @@
     "adhesive": "adhesive.js"
   },
   "dependencies": {
-    "uglify-js": "^3.3.25"
+    "uglify-js": "^2.8.29"
   }
 }
